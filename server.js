@@ -17,6 +17,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 //middlewares
 app.use(morgan("dev"));
@@ -26,6 +27,7 @@ app.use(cors({ origin: process.env.CLIENT_URL }));
 
 //routes
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {

@@ -16,3 +16,14 @@ exports.userLoginValidator = [
     .isLength({ min: 6 })
     .withMessage("password must be at least 6 characters long"),
 ];
+
+exports.forgotPasswordValidator = [
+  check("email").isEmail().withMessage("email is not valid"),
+];
+
+exports.resetPasswordValidator = [
+  check("newPassword")
+    .isLength({ min: 6 })
+    .withMessage("password must be at least 6 characters long"),
+  check("resetPasswordLink").not().isEmpty().withMessage("Token required"),
+];
