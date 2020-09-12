@@ -1,15 +1,27 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 const {
   requireSignIn,
   authMiddleware,
-  adminMiddleware,
-} = require("../controllers/auth");
+  adminMiddleware
+} = require('../controllers/auth');
 
-const { read } = require("../controllers/user");
+const { userUpdateValidator } = require('../validators/auth');
 
-router.get("/user", requireSignIn, authMiddleware, read);
-router.get("/admin", requireSignIn, adminMiddleware, read);
+const { runValidation } = require('../validators');
+
+const { read, update } = require('../controllers/user');
+
+router.get('/user', requireSignIn, authMiddleware, read);
+router.get('/admin', requireSignIn, adminMiddleware, read);
+router.put(
+  '/user',
+  userUpdateValidator,
+  runValidation,
+  requireSignIn,
+  authMiddleware,
+  update
+);
 
 module.exports = router;
